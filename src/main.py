@@ -1,4 +1,3 @@
-## Imports
 from interface import print_title, get_player_name, get_user_command, display_message, display_invalid_command_message
 from player import Player
 import random
