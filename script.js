@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for the button click
     startGameButton.addEventListener("click", function () {
-        // Add any logic here to start the game
-        alert("The game is starting!"); // Replace this with your actual game starting logic
+        // Redirect to the game page
+        window.location.href = "game.html";
     });
 });
