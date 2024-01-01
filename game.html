@@ -1,3 +1,5 @@
+<!-- game.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,41 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xianxia Simulator - Game</title>
-    <!-- Add your styles or link to an external stylesheet here -->
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #f39c12; /* Yellow color */
-        }
-        p {
-            color: #3498db; /* Blue color */
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #e74c3c; /* Red color */
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #c0392b; /* Darker red color on hover */
-            transition: background-color 0.3s ease;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <h1>Xianxia Simulator - Game</h1>
 
     <!-- Display player stats -->
-    <p id="playerStats">Player Stats: Level 1 | Health: 100 | Mana: 50</p>
+    <p id="playerStats">Player Stats: Player1 | Level 1 | Health: 100 | Mana: 50 | XP: 0</p>
 
     <!-- Cultivate button -->
     <button id="cultivateButton">Cultivate</button>
+
+    <!-- Train button -->
+    <button id="trainButton">Train</button>
+
+    <!-- Quest button -->
+    <button id="questButton">Embark on Quest</button>
 
     <!-- Script to handle game logic -->
     <script type="text/javascript" src="script.js"></script>
