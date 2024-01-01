@@ -1,4 +1,6 @@
-from player import Player  # Assuming you have a Player class in a separate file
+from player import Player
+from termcolor import colored
+import random
 
 def print_title():
     title = " Xianxia Simulator "
