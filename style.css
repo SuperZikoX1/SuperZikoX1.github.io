@@ -1,0 +1,40 @@
+/* Reset some default styles */
+body, h1, p, button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ecf0f1; /* Light gray background color */
+    text-align: center;
+    margin: 50px;
+}
+
+h1 {
+    color: #f39c12; /* Yellow color for headings */
+    margin-bottom: 20px;
+}
+
+p {
+    color: #3498db; /* Blue color for paragraphs */
+    margin-bottom: 30px;
+}
+
+a {
+    color: #2ecc71; /* Green color for links */
+    text-decoration: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #e74c3c; /* Red color for buttons */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c0392b; /* Darker red color on hover */
+}
