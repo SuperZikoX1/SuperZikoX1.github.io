@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         health: 100,
         mana: 50,
         xp: 0,
-        age: 0, // New property for age
+        age: 15, // New property for age
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10
     };
