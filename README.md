@@ -1,2 +1,2 @@
-# XianxiaSim.github.io
+# XianxiaSim
 Welcome to my newly made Xianxia simulator ;)
