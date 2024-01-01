@@ -9,11 +9,17 @@ body {
     background-color: #ecf0f1; /* Light gray background color */
     text-align: center;
     margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 100% of the viewport height */
 }
 
 h1 {
     color: #f39c12; /* Yellow color for headings */
     margin-bottom: 20px;
+    font-size: 2em; /* Enlarge the title */
 }
 
 p {
@@ -37,4 +43,5 @@ button {
 
 button:hover {
     background-color: #c0392b; /* Darker red color on hover */
+    transition: background-color 0.3s ease;
 }
