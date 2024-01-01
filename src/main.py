@@ -1,45 +1,29 @@
+from interface import print_title, get_player_name, get_user_command, display_message, display_invalid_command_message
 from player import Player
-from termcolor import colored
 import random
-
-def print_title():
-    title = " Xianxia Simulator "
-    colored_title = colored(title, 'yellow', attrs=['bold'])
-    print(colored_title)
 
 def main():
     print_title()
-    player_name = input("Enter your character's name: ")
+    player_name = get_player_name()
     player = Player(player_name)
 
     while True:
-        command = input("\nEnter a command (type '.' to exit): ")
+        command = get_user_command()
 
         if command == ".":
             break
 
         elif command.lower() == "train":
             player.xp += random.randint(5, 15)
-            print(f"You gained {player.xp} XP from training!")
+            display_message(f"You gained {player.xp} XP from training!")
 
             if player.xp >= 100:
                 player.level_up()
 
-        elif command.lower() == "explore":
-            player.explore_realm()
-
-        elif command.lower() == "quest":
-            player.embark_on_quest()
-
-        elif command.lower() == "cultivate":
-            player.cultivate()
-
-        elif command.lower() == "stats":
-            player.display_stats()
+        # ... (other commands)
 
         else:
-            print("Invalid command. Try again.")
+            display_invalid_command_message()
 
 if __name__ == "__main__":
     main()
-
