@@ -1,5 +1,3 @@
-# Xianxia Simulator
-
 A text-based Xianxia Simulator game where players embark on a journey of cultivation, quests, and exploration.
 
 ## Features
