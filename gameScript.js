@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
         mana: 50,
         xp: 0,
         age: 0,
-        actionsCount: 0, // New property to count actions
+        actionsCount: 0,
+        mentality: 100, // New property for mentality
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10,
         realm: 0,
@@ -35,9 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const cultivateButton = document.getElementById("cultivateButton");
     const trainButton = document.getElementById("trainButton");
     const questButton = document.getElementById("questButton");
+    const restButton = document.getElementById("restButton"); // New button for resting
 
     function updatePlayerStats() {
-        playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Realm: ${player.realms[player.realm]} - Tier ${player.level % player.realmTiers + 1} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp} | Age: ${player.age}`;
+        playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Realm: ${player.realms[player.realm]} - Tier ${player.level % player.realmTiers + 1} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp} | Age: ${player.age} | Mentality: ${player.mentality}`;
     }
 
     function levelUp() {
@@ -57,14 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function checkLifespan() {
         if (player.age >= player.lifespan) {
-            alert("You died of old age.");
+            alert("You die of old age.");
             resetGame();
         }
-    }
-
-    function resetGame() {
-        alert("Game over. You can reset the game here.");
-        location.reload();
     }
 
     function handleAction() {
@@ -74,6 +71,35 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("A year has passed due to your actions.");
         }
         checkLifespan();
+    }
+
+    function rest() {
+        // Rest increases mentality, but with a limit of 100
+        player.mentality += 10;
+        if (player.mentality > 100) {
+            player.mentality = 100;
+        }
+
+        // Different states based on mentality
+        if (player.mentality <= 0) {
+            alert("You went into Qi Deviation. You die.");
+            resetGame();
+        } else if (player.mentality <= 20) {
+            alert("You are in an Unstable state.");
+        } else if (player.mentality <= 50) {
+            alert("You are in a Stable state.");
+        } else if (player.mentality <= 70) {
+            alert("You are in a Calm state.");
+        } else {
+            alert("You are in a Peace of Mind state.");
+        }
+
+        updatePlayerStats();
+    }
+
+    function resetGame() {
+        alert("Game over. You can reset the game here.");
+        location.reload();
     }
 
     cultivateButton.addEventListener("click", function () {
@@ -112,6 +138,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         handleAction();
+    });
+
+    // Event listener for the Rest button
+    restButton.addEventListener("click", function () {
+        rest();
     });
 
     updatePlayerStats();
