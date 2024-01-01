@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xp: 0,
         age: 0,
         actionsCount: 0,
-        mentality: 100, // New property for mentality
+        mentality: 100,
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10,
         realm: 0,
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cultivateButton = document.getElementById("cultivateButton");
     const trainButton = document.getElementById("trainButton");
     const questButton = document.getElementById("questButton");
-    const restButton = document.getElementById("restButton"); // New button for resting
+    const restButton = document.getElementById("restButton");
 
     function updatePlayerStats() {
         playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Realm: ${player.realms[player.realm]} - Tier ${player.level % player.realmTiers + 1} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp} | Age: ${player.age} | Mentality: ${player.mentality}`;
@@ -66,21 +66,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleAction() {
         player.actionsCount++;
+        player.mentality -= 5; // Decrease mentality after each action
         if (player.actionsCount % 12 === 0) {
             player.age++;
             alert("A year has passed due to your actions.");
         }
         checkLifespan();
+        updatePlayerStats();
     }
 
     function rest() {
-        // Rest increases mentality, but with a limit of 100
         player.mentality += 10;
         if (player.mentality > 100) {
             player.mentality = 100;
         }
 
-        // Different states based on mentality
         if (player.mentality <= 0) {
             alert("You went into Qi Deviation. You die.");
             resetGame();
@@ -106,41 +106,37 @@ document.addEventListener("DOMContentLoaded", function () {
         const cultivationGain = Math.floor(Math.random() * 10) + 1;
         player.mana += cultivationGain;
         player.xp += cultivationGain;
+        handleAction();
         updatePlayerStats();
 
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
             levelUp();
         }
-
-        handleAction();
     });
 
     trainButton.addEventListener("click", function () {
         const trainingGain = Math.floor(Math.random() * 15) + 5;
         player.xp += trainingGain;
+        handleAction();
         updatePlayerStats();
 
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
             levelUp();
         }
-
-        handleAction();
     });
 
     questButton.addEventListener("click", function () {
         alert("You embark on a quest!");
         const questXP = Math.floor(Math.random() * 20) + 10;
         player.xp += questXP;
+        handleAction();
         updatePlayerStats();
 
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
             levelUp();
         }
-
-        handleAction();
     });
 
-    // Event listener for the Rest button
     restButton.addEventListener("click", function () {
         rest();
     });
