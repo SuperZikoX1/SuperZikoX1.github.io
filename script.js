@@ -1,6 +1,9 @@
+// script.js
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Placeholder player data
+    // Player data
     let player = {
+        name: "Player1",
         level: 1,
         health: 100,
         mana: 50,
@@ -12,36 +15,60 @@ document.addEventListener("DOMContentLoaded", function () {
     // Reference to game elements
     const playerStatsElement = document.getElementById("playerStats");
     const cultivateButton = document.getElementById("cultivateButton");
+    const trainButton = document.getElementById("trainButton");
+    const questButton = document.getElementById("questButton");
 
-    // Update player stats display
+    // Function to update player stats display
     function updatePlayerStats() {
-        playerStatsElement.textContent = `Player Stats: Level ${player.level} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp}`;
+        playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp}`;
+    }
+
+    // Function to handle level up and realm advancement
+    function levelUp() {
+        player.level++;
+        player.mana = 0;
+        alert("Level up! You have advanced to the next realm!");
+        updatePlayerStats();
+
+        if (player.level % 10 === 0) {
+            alert("Congratulations! You have advanced to a new realm!");
+            player.xp = 0;
+            updatePlayerStats();
+        }
     }
 
     // Event listener for the Cultivate button
     cultivateButton.addEventListener("click", function () {
-        // Placeholder cultivation logic
         const cultivationGain = Math.floor(Math.random() * 10) + 1;
         player.mana += cultivationGain;
         player.xp += cultivationGain;
-
-        // Update player stats display
         updatePlayerStats();
 
-        // Check for level-up
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
-            player.level++;
-            player.mana = 0;
-            alert("Level up! You have advanced to the next realm!");
-            updatePlayerStats();
+            levelUp();
+        }
+    });
 
-            // Check for realm advancement
-            if (player.level % 10 === 0) {
-                alert("Congratulations! You have advanced to a new realm!");
-                // Adjust exp requirements for the new realm
-                player.xp = 0;
-                updatePlayerStats();
-            }
+    // Event listener for the Train button
+    trainButton.addEventListener("click", function () {
+        const trainingGain = Math.floor(Math.random() * 15) + 5;
+        player.xp += trainingGain;
+        updatePlayerStats();
+
+        if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
+            levelUp();
+        }
+    });
+
+    // Event listener for the Quest button
+    questButton.addEventListener("click", function () {
+        alert("You embark on a quest!");
+        const questXP = Math.floor(Math.random() * 20) + 10;
+        player.xp += questXP;
+        updatePlayerStats();
+
+        if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
+            levelUp();
         }
     });
 
