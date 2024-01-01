@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
         mana: 50,
         xp: 0,
         age: 0,
+        actionsCount: 0, // New property to count actions
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10,
-        realm: 0, // New property for realm
-        realmTiers: 10, // Number of tiers in each realm
+        realm: 0,
+        realmTiers: 10,
         realms: [
             "Mortal Realm",
             "Qi Gathering Realm",
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function checkLifespan() {
         if (player.age >= player.lifespan) {
-            alert("You die of old age.");
+            alert("You died of old age.");
             resetGame();
         }
     }
@@ -66,45 +67,51 @@ document.addEventListener("DOMContentLoaded", function () {
         location.reload();
     }
 
+    function handleAction() {
+        player.actionsCount++;
+        if (player.actionsCount % 12 === 0) {
+            player.age++;
+            alert("A year has passed due to your actions.");
+        }
+        checkLifespan();
+    }
+
     cultivateButton.addEventListener("click", function () {
         const cultivationGain = Math.floor(Math.random() * 10) + 1;
         player.mana += cultivationGain;
         player.xp += cultivationGain;
-        player.age++;
         updatePlayerStats();
 
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
             levelUp();
         }
 
-        checkLifespan();
+        handleAction();
     });
 
     trainButton.addEventListener("click", function () {
         const trainingGain = Math.floor(Math.random() * 15) + 5;
         player.xp += trainingGain;
-        player.age++;
         updatePlayerStats();
 
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
             levelUp();
         }
 
-        checkLifespan();
+        handleAction();
     });
 
     questButton.addEventListener("click", function () {
         alert("You embark on a quest!");
         const questXP = Math.floor(Math.random() * 20) + 10;
         player.xp += questXP;
-        player.age++;
         updatePlayerStats();
 
         if (player.xp >= expRequirementsPerRealm[player.level - 1]) {
             levelUp();
         }
 
-        checkLifespan();
+        handleAction();
     });
 
     updatePlayerStats();
