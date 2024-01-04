@@ -1,3 +1,5 @@
+// gameScript.js
+
 document.addEventListener("DOMContentLoaded", function () {
     let player = {
         name: "Player1",
@@ -8,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
         age: 0,
         actionsCount: 0,
         mentality: 100,
-        spiritRoot: "None",
-        spiritRootButtonEnabled: true,
+        spiritRoot: getRandomSpiritRoot(), // Assign a spirit root immediately
+        spiritRootButtonEnabled: false, // Disable the spirit root button initially
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10,
         realm: 0,
@@ -103,25 +105,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function obtainSpiritRoot() {
-    if (player.spiritRootButtonEnabled) {
-        const randomChance = Math.random();
-        if (randomChance < 0.8) {
-            player.spiritRoot = "False Spiritual Root";
-            player.mana += 5;
-        } else if (randomChance < 0.99) {
-            player.spiritRoot = "True Spiritual Root";
-            player.mana += 10;
-        } else {
-            player.spiritRoot = "Heavenly Spiritual Root";
-            player.mana += 20;
+        if (player.spiritRootButtonEnabled) {
+            const randomChance = Math.random();
+            if (randomChance < 0.8) {
+                player.spiritRoot = "False Spiritual Root";
+                player.mana += 5;
+            } else if (randomChance < 0.99) {
+                player.spiritRoot = "True Spiritual Root";
+                player.mana += 10;
+            } else {
+                player.spiritRoot = "Heavenly Spiritual Root";
+                player.mana += 20;
+            }
+            alert(`You obtained a ${player.spiritRoot}!`);
+            player.spiritRootButtonEnabled = false;
+            updatePlayerStats(); // Update player stats after obtaining a spirit root
         }
-        alert(`You obtained a ${player.spiritRoot}!`);
-        player.spiritRootButtonEnabled = false;
-        updatePlayerStats(); // Update player stats after obtaining a spirit root
-    } else {
-        alert("You have already obtained a spirit root. You can't obtain another until the game is restarted.");
     }
-}
 
     function resetGame() {
         alert("Game over. You can reset the game here.");
@@ -176,6 +176,55 @@ document.addEventListener("DOMContentLoaded", function () {
     restartButton.addEventListener("click", function () {
         restartGame();
     });
+
+    function getRandomSpiritRoot() {
+        const randomChance = Math.random();
+        if (randomChance < 0.8) {
+            return "False Spiritual Root";
+        } else if (randomChance < 0.99) {
+            return "True Spiritual Root";
+        } else {
+            return "Heavenly Spiritual Root";
+        }
+    }
+
+    function restartGame() {
+        alert("Game over. You can reset the game here.");
+        player.spiritRootButtonEnabled = true;
+        player.spiritRoot = getRandomSpiritRoot(); // Assign a new spirit root on restart
+        player = {
+            name: "Player1",
+            level: 1,
+            health: 100,
+            mana: 50,
+            xp: 0,
+            age: 0,
+            actionsCount: 0,
+            mentality: 100,
+            spiritRootButtonEnabled: false,
+            spiritRoot: getRandomSpiritRoot(),
+            lifespan: 80,
+            lifespanIncreaseOnBreakthrough: 10,
+            realm: 0,
+            realmTiers: 10,
+            realms: [
+                "Mortal Realm",
+                "Qi Gathering Realm",
+                "Qi Condensation Realm",
+                "Foundation Establishment Realm",
+                "Golden Core Formation Realm",
+                "Nascent Soul Realm",
+                "Spirit Severing Realm",
+                "Dao Seeking Realm",
+                "Immortal Ascension Realm",
+                "Ancient Realm",
+                "Quasi Paragon Realm",
+                "Dao Lord"
+            ]
+        };
+
+        updatePlayerStats();
+    }
 
     updatePlayerStats();
 });
