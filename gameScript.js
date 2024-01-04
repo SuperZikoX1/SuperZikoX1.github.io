@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
         age: 0,
         actionsCount: 0,
         mentality: 100,
-        spiritRoot: "None", // New property for spirit root
+        spiritRoot: "None",
+        spiritRootButtonEnabled: true, // New property to track button state
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10,
         realm: 0,
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const trainButton = document.getElementById("trainButton");
     const questButton = document.getElementById("questButton");
     const restButton = document.getElementById("restButton");
-    const spiritRootButton = document.getElementById("spiritRootButton"); // New button for obtaining spirit root
+    const spiritRootButton = document.getElementById("spiritRootButton");
 
     function updatePlayerStats() {
         playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Realm: ${player.realms[player.realm]} - Tier ${player.level % player.realmTiers + 1} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp} | Age: ${player.age} | Mentality: ${player.mentality} | Spirit Root: ${player.spiritRoot}`;
@@ -104,18 +105,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function obtainSpiritRoot() {
-        const randomChance = Math.random();
-        if (randomChance < 0.8) {
-            player.spiritRoot = "False Spiritual Root";
-            player.mana += 5; // Increase mana for False Spiritual Root
-        } else if (randomChance < 0.99) {
-            player.spiritRoot = "True Spiritual Root";
-            player.mana += 10; // Increase mana for True Spiritual Root
-        } else {
-            player.spiritRoot = "Heavenly Spiritual Root";
-            player.mana += 20; // Increase mana for Heavenly Spiritual Root
+        if (player.spiritRootButtonEnabled) {
+            const randomChance = Math.random();
+            if (randomChance < 0.8) {
+                player.spiritRoot = "False Spiritual Root";
+                player.mana += 5;
+            } else if (randomChance < 0.99) {
+                player.spiritRoot = "True Spiritual Root";
+                player.mana += 10;
+            } else {
+                player.spiritRoot = "Heavenly Spiritual Root";
+                player.mana += 20;
+            }
+            alert(`You obtained a ${player.spiritRoot}!`);
+            player.spiritRootButtonEnabled = false; // Disable the button after obtaining a spirit root
         }
-        alert(`You obtained a ${player.spiritRoot}!`);
     }
 
     function resetGame() {
