@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         age: 0,
         actionsCount: 0,
         mentality: 100,
+        spiritRoot: "None", // New property for spirit root
         lifespan: 80,
         lifespanIncreaseOnBreakthrough: 10,
         realm: 0,
@@ -37,9 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const trainButton = document.getElementById("trainButton");
     const questButton = document.getElementById("questButton");
     const restButton = document.getElementById("restButton");
+    const spiritRootButton = document.getElementById("spiritRootButton"); // New button for obtaining spirit root
 
     function updatePlayerStats() {
-        playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Realm: ${player.realms[player.realm]} - Tier ${player.level % player.realmTiers + 1} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp} | Age: ${player.age} | Mentality: ${player.mentality}`;
+        playerStatsElement.textContent = `Player Stats: ${player.name} | Level ${player.level} | Realm: ${player.realms[player.realm]} - Tier ${player.level % player.realmTiers + 1} | Health: ${player.health} | Mana: ${player.mana} | XP: ${player.xp} | Age: ${player.age} | Mentality: ${player.mentality} | Spirit Root: ${player.spiritRoot}`;
     }
 
     function levelUp() {
@@ -66,11 +68,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleAction() {
         player.actionsCount++;
-        player.mentality -= 5; // Decrease mentality after each action
+        player.mentality -= 5;
         if (player.actionsCount % 12 === 0) {
             player.age++;
             alert("A year has passed due to your actions.");
         }
+
+        // Obtain spirit root with a chance
+        obtainSpiritRoot();
+
         checkLifespan();
         updatePlayerStats();
     }
@@ -95,6 +101,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         updatePlayerStats();
+    }
+
+    function obtainSpiritRoot() {
+        const randomChance = Math.random();
+        if (randomChance < 0.8) {
+            player.spiritRoot = "False Spiritual Root";
+            player.mana += 5; // Increase mana for False Spiritual Root
+        } else if (randomChance < 0.99) {
+            player.spiritRoot = "True Spiritual Root";
+            player.mana += 10; // Increase mana for True Spiritual Root
+        } else {
+            player.spiritRoot = "Heavenly Spiritual Root";
+            player.mana += 20; // Increase mana for Heavenly Spiritual Root
+        }
+        alert(`You obtained a ${player.spiritRoot}!`);
     }
 
     function resetGame() {
@@ -139,6 +160,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     restButton.addEventListener("click", function () {
         rest();
+    });
+
+    // Event listener for the Spirit Root button
+    spiritRootButton.addEventListener("click", function () {
+        obtainSpiritRoot();
+        updatePlayerStats();
     });
 
     updatePlayerStats();
